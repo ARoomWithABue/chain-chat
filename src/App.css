@@ -41,11 +41,21 @@ p {
   height: 100%;
 }
 
-.flexBox {
+.flexColumn {
   float: left;
   height: 100%;
   flex-flow: column;
   display: flex;
+}
+
+.flexRow {
+  height: 100%;
+  flex-flow: row;
+  display: flex;
+}
+
+.flexFill {
+  flex: 1 1 auto;
 }
 
 .flexFit {
@@ -54,6 +64,12 @@ p {
 
 .shadow {
   box-shadow: 0.2em 0.2em 0.2em 0.2em rgba(0,0,0,0.2);
+}
+
+.topBar {
+  height: 66px;
+  -webkit-box-shadow: 0px 4px 5px 0px #000000;
+  box-shadow: 0px 2px 5px 0px #000000;
 }
 
 #root {
@@ -107,13 +123,16 @@ p {
   background-image: url("./images/plus-icon.png");
 }
 
+#Server-Chat {
+  background-color: #D0A5C0;
+}
+
 #Server-Info {
   width: 240px;
   background-color: #8E7C93;
 }
 
 #Server-Channels {
-
   flex: 1 1 auto;
 }
 

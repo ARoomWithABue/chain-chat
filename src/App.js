@@ -1,85 +1,21 @@
 import React, {Component} from 'react';
 import './App.css';
-import './index.css';
-import socket from 'socket.io-client';
-import ScatterBridge from './scatterBridge.js';
 import ServerSelector from './components/ServerSelection.js';
-import ServerInfo from "./components/ServerInfo";
+import ServerInfo from "./components/ServerInfo.js";
+import ServerChat from "./components/ServerChat.js";
 
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            value: '',
-            messages: [],
-            io: socket('http://localhost:3001/hello-telos'),
-            network: {
-                blockchain: "eos",
-                protocol: "http",
-                host: "127.0.0.1",
-                port: 8888,
-                chainId: "9f4183d0c2e5be6a662c3e62d78aa7f54e9795026febfe2d66392fc772a238c0"
-                },
-            scatterjs: null
-        };
-
-        this.state.io.emit('con-event', {
-            user: 'user' + Math.random() * 2 + 1,
-            connectionTime: new Date()
-        });
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleTransaction = this.handleTransaction.bind(this);
-
-        this.state.io.on('chat message', (msg) => {
-            console.log(`msg received: ${msg}`);
-            this.msgHandler(msg);
-        });
+        this.state = {};
     }
 
     componentWillMount() {
-        this.setState({
-            scatterjs: new ScatterBridge(this.state.network, "Chain Chat")
-        })
-    }
 
-    async componentDidMount() {
-        await this.state.scatterjs.connect();
-    }
-
-    msgHandler(msg) {
-        this.setState({messages: this.state.messages.concat(msg)});
-    }
-
-    clickHandler() {
-        this.state.io.emit('chat message', this.state.value);
-        this.setState({value: ""});
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        this.clickHandler();
-    }
-
-    handleChange(event) {
-        this.setState({value: event.target.value});
     }
 
     serverClickHandler(msg) {
         console.log(msg);
-    }
-
-    async handleTransaction() {
-        await this.state.scatterjs.getIdentity();
-        let action = this.state.scatterjs.makeAction("eosio.token", "transfer", {
-           from: this.state.scatterjs.currentAccount.name,
-           to: "testaccountz",
-           quantity: "1.0000 TLOS",
-           memo: "scatter integration test"
-        });
-        console.log(`from: ${this.state.scatterjs.currentAccount.name}`);
-        await this.state.scatterjs.sendTx([action]);
     }
 
     render() {
@@ -118,6 +54,7 @@ class App extends Component {
             <div className="App">
                 <ServerSelector servers={servers} handler={this.serverClickHandler}/>
                 <ServerInfo user={user} server={selectedServer}/>
+                <ServerChat/>
             </div>
         );
     }

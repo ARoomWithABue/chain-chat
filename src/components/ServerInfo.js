@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import socket from 'socket.io-client';
 
 class ServerInfo extends Component {
     constructor(props) {
@@ -29,7 +28,7 @@ class ServerInfo extends Component {
             backgroundImage: `url("${this.state.user.image}")`,
         };
         return (
-          <div id="Server-Info" className="flexBox">
+          <div id="Server-Info" className="flexColumn">
               <div id="User-Profile" className="row flexFit">
                   <div className="col-3"><div className="userIcon-large shadow" style={userStyle}></div></div>
                   <div className="col-1"></div>
