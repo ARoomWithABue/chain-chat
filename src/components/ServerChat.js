@@ -5,7 +5,7 @@ class ServerChat extends Component {
         super(props);
 
         this.state = {
-            user: props.user,
+            // user: props.user, // no need to save the object on the state when you have it already on props.
             channels: []
         }
     }

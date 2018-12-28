@@ -3,11 +3,6 @@ import React, {Component} from "react";
 class ServerSelector extends Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            handler: props.handler,
-            servers: props.servers
-        };
     }
 
     componentWillMount() {
@@ -26,9 +21,9 @@ class ServerSelector extends Component {
         return (
             <div id="Server-Select" className="flexColumn">
                 {
-                    this.state.servers.map((obj) => {
+                    this.props.servers.map((obj) => {
                         return <button key={obj.name} className="shadow" style={{backgroundImage: `url("${obj.image}")`}}
-                                       onClick={()=> {this.state.handler(obj.msg)}}></button>
+                                       onClick={()=> {this.props.handler(obj.msg)}}></button>
                     })
                 }
                 <button className="Server-Add"></button>
